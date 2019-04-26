@@ -1,0 +1,27 @@
+{
+  "name": "anychart-maps",
+  "version": "2.0.0",
+  "description": "AnyChart Maps Collection",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnyChart/anychart-maps.git"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.js",
+    "samples": "node ./scripts/samples.js"
+  },
+  "keywords": [
+    "AnyChart",
+    "map",
+    "SVG",
+    "geojson"
+  ],
+  "author": "AnyChart <contact@anychart.com> (https://anychart.com)",
+  "license": "SEE LICENSE IN <http://www.anychart.com/buy>",
+  "sideEffects": false,
+  "dependencies": {
+    "mapshaper": "^0.4.104",
+    "xml2js": "^0.4.19",
+    "adm-zip": "^0.4.13"
+  }
+}
