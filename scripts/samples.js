@@ -4,6 +4,8 @@ const path = require('path');
 const SRC_PATH = path.resolve(__dirname, '..', 'src');
 const SAMPLES_PATH = path.resolve(__dirname, '..', 'samples');
 
+const { getVersion, capitalize } = require('./utils')
+
 
 /**
  * Create a directory for every group of maps.
@@ -28,10 +30,11 @@ function generateDataSet(idArr) {
 
 /**
  * Generate map sample.
+ * @param {string} version map version
  * @param {string} group which group the map belongs to
  * @param {string} mapName name of the map
  */
-function createMapDemo(group, mapName) {
+function createMapDemo(version, group, mapName) {
   const srcPath = path.join(SRC_PATH, group, mapName);
   const distPath = path.join(SAMPLES_PATH, group);
   // read map JSON file
@@ -50,12 +53,14 @@ function createMapDemo(group, mapName) {
       .replace(/{{map_name}}/g, mapName)
       .replace(/{{directory}}/g, group)
       .replace(/{{map_js}}/g, `${mapName}.js`)
+      .replace(/{{version}}/g, `${version}`)
       .replace("'{{map_data}}'", JSON.stringify(mapData))
       .replace(/},/g, '},\n\t\t\t');
 
     createMapDir(group);
+    const newMapName = mapName.split('_').map(capitalize).join('_');
 
-    fs.writeFile(path.join(distPath, `${mapName}.html`), mapSampleTemplate, err => {
+    fs.writeFile(path.join(distPath, `${newMapName}.html`), mapSampleTemplate, err => {
       if (err)
         console.log(err);
     });
@@ -66,8 +71,9 @@ function createMapDemo(group, mapName) {
 /**
  * Start building map samples collection.
  */
-function buildSamples() {
+async function buildSamples() {
   // read src directory
+  const version = await getVersion();
   fs.readdir(SRC_PATH, (err, groups) => {
     // create '/demos' folder
     if (!fs.existsSync(SAMPLES_PATH))
@@ -78,10 +84,13 @@ function buildSamples() {
       let maps = fs.readdirSync(path.join(SRC_PATH, group));
       for (let j = 0; j < maps.length; j++) {
         const mapName = String(maps[j]).replace('.json', '');
-        createMapDemo(group, mapName);
+        createMapDemo(version, group, mapName);
       }
     }
   });
 }
 
-buildSamples();
+buildSamples().catch(err => {
+  console.log(err);
+  process.exit(1);
+});

@@ -42,7 +42,7 @@ async function dropCache() {
     const version = await getVersion();
     const files = (await filesList(DIST_PATH)).map(fileName => {
         const rel = path.relative(DIST_PATH, fileName)
-        return `/locales/${version}/${rel}`;
+        return `/geodata/${version}/${rel}`;
     });
     const chunks = [];
     // split all files to chunk by CHUNK_SIZE

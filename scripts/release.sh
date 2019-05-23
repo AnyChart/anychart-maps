@@ -12,6 +12,26 @@ run () {
 }
 
 echo "--"
+echo "Build samples"
+echo "--"
+run "node ./scripts/samples.js"
+echo
+
+echo "--"
+echo "Creating/checkout branch for maps-collection-samples: $VERSION"
+run "cd ../maps-collection-samples"
+run "git checkout -b $VERSION || git checkout $VERSION"
+echo "Updating samples"
+run "cp -R ../anychart-maps/samples/* ./"
+echo "Commit and push"
+run "git add ."
+run "git commit -am 'Update version $VERSION'"
+run "git push -u origin $VERSION"
+
+run "cd ../anychart-maps"
+run "rm -rf samples"
+
+echo "--"
 echo "Build maps"
 echo "--"
 run "node ./scripts/build.js"

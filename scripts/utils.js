@@ -57,8 +57,20 @@ function dir(dirPath) {
 }
 
 
+/**
+ * Capitalizes passed string.
+ * capitalize('qwer') => 'Qwer'
+ * @param {string} str String to capitalize.
+ * @return {string} Capitalized string.
+ */
+function capitalize(str) {
+  return String(str.charAt(0)).toUpperCase() + str.substr(1);
+};
+
+
 module.exports = {
     getVersion,
-    filesList
+    filesList,
+    capitalize
 }
 

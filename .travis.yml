@@ -22,6 +22,7 @@ before_install:
 
 install:
   - npm install
+  - git clone git@github.com:AnyChart/maps-collection-samples.git ../maps-collection-samples
 
 before_script:
   - npm install maxcdn
