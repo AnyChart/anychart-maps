@@ -20,6 +20,7 @@ echo
 echo "--"
 echo "Creating/checkout branch for maps-collection-samples: $VERSION"
 run "cd ../maps-collection-samples"
+run "git fetch --all --prune"
 run "git checkout -b $VERSION || git checkout $VERSION"
 echo "Updating samples"
 run "cp -R ../anychart-maps/samples/* ./"
