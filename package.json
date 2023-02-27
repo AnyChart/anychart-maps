@@ -20,7 +20,7 @@
   "license": "SEE LICENSE IN <http://www.anychart.com/buy>",
   "sideEffects": false,
   "dependencies": {
-    "mapshaper": "^0.4.104",
+    "mapshaper": "^0.6.24",
     "xml2js": "^0.4.19",
     "adm-zip": "^0.4.13"
   }
